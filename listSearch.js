@@ -53,9 +53,9 @@ export async function execute(interaction, query, p)
         let index = ((page - 1) * messagesPerPage) + 1;
         documents.forEach((document, currentIndex, array) => {
           if (currentIndex === array.length - 1) {
-            response += "```" + document.$id + "```" + "<" + document.message + ">" + "\n";
+            response += "```" + document.$id + "```" + "<" + document.message + "> [" + document.folder + "]" + "\n";
           } else {
-            response += "```" + document.$id + "```" + "<" + document.message + ">" + "\n\n";
+            response += "```" + document.$id + "```" + "<" + document.message + "> [" + document.folder + "]" + "\n\n";
           }
           index++;
         });
