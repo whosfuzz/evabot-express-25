@@ -28,7 +28,7 @@ let client = new Client({
     ],
   });
 
-const currentlyStreaming = new Set();
+const streamingMessages = {};
 
 async function handleInteraction(interaction) {
 
@@ -445,16 +445,20 @@ async function reset()
             const userId = user.id;
         
             // Check if newActivity exists
-            if (newActivity && !oldActivity && !currentlyStreaming.has(userId)) {
-              currentlyStreaming.add(userId);
+            if (newActivity && !oldActivity) {
               const activityDetails = newActivity.details ? ` ${newActivity.details}` : '';
-              const activityState = newActivity.state ? ` ${newActivity.state}` : activityDetails;
+              const activityState = newActivity.state ? ` ${newActivity.state}` : '';
               const activityUrl = newActivity.url ? ` ${newActivity.url}` : '';
               const activityName = newActivity.name ? ` on ${newActivity.name}` : '';
-              await channel.send(`${member.displayName} is streaming${activityState}${activityName}${activityUrl}`);
-            } else if (!newActivity && oldActivity && currentlyStreaming.has(userId)) {
-              currentlyStreaming.delete(userId);
-            }
+                
+              const messageToSend = `${member.displayName} is streaming${activityDetails}${activityState}${activityName}${activityUrl}`;
+
+              if(streamingMessages[userId] !== messageToSend)
+              {
+                  streamingMessages[userId] = messageToSend;
+                  await channel.send(messageToSend);
+              }
+            } 
           } catch (error) {
             console.error("Error in presenceUpdate:", error);
           }
@@ -471,13 +475,6 @@ app.get('/', (req, res) => {
   res.json({
     message: 'Hello, world!',
   })
-});
-
-app.get('/clear', (req, res) => {
-  currentlyStreaming.clear();
-  res.json({
-    message: 'Cleared Currently Streaming Set',
-  });
 });
 
 app.listen(port, () => {
