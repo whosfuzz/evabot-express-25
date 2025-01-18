@@ -277,7 +277,7 @@ async function evaFunction(channel, folder, iterations = 0) {
                     if(iterationResult === 0)
                     {
                         try {
-                            const response = await getRandomImage(folderName);
+                            const response = await getRandomBlueskyImage(folderName);
                             await channel.send(`${response}`);
                         } catch (error) {
                                 await channel.send("I can't show that!");
@@ -334,7 +334,7 @@ async function reset()
                     
                     if (result === 0) {
                         try {
-                            const response = await getRandomImage(searchTerm);
+                            const response = await getRandomBlueskyImage(searchTerm);
                             await message.channel.send(`${response}`);
                         } catch (error) {
                             await message.channel.send("I can't show that!");
@@ -355,7 +355,7 @@ async function reset()
                     
                     if (result === 0) {
                         try {
-                            const response = await getRandomImage(searchTerm);
+                            const response = await getRandomBlueskyImage(searchTerm);
                             await message.channel.send(`${response}`);
                         } catch (error) {
                             await message.channel.send("I can't show that!");
@@ -376,7 +376,7 @@ async function reset()
                     
                     if (result === 0) {
                         try {
-                            const response = await getRandomImage(searchTerm);
+                            const response = await getRandomBlueskyImage(searchTerm);
                             await message.channel.send(`${response}`);
                         } catch (error) {
                             await message.channel.send("I can't show that!");
@@ -421,10 +421,10 @@ async function reset()
                 if(result === 0)
                 {
                     try {
-                        const response = await getRandomImage(folderName);
+                        const response = await getRandomBlueskyImage(folderName);
                         await message.channel.send(`${response}`);
                     } catch (error) {
-                            await message.channel.send("I can't show that!");
+                        await message.channel.send("I can't show that!");
                     }
                 }
             }
